@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+// import { AptosClient, Types } from 'aptos';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// const client = new AptosClient('https://fullnode.devnet.aptoslabs.com/v1');
+
+// function App() {
+
+//   const [address, setAddress] = useState<string>('');
+//   const [account, setAccount] = useState<Types.AccountData | null>(null);
+//   console.log(account);
+
+//   const init = async() => {
+//     // connect
+//     const { address, publicKey } = await window.aptos.connect();
+//     setAddress(address);
+//   }
+
+//   useEffect(() => {
+//     init();
+//  }, []);
+
+//  useEffect(() => {
+//   if (!address) return;
+//   client.getAccount(address).then(setAccount);
+// }, [address]);
+
+//   return (
+//     <div className="App">
+//       <p>Account Address: <code>{ address }</code></p>
+//       <p>Sequence Number: <code>{ account?.sequence_number }</code></p>
+//     </div>
+//   );
+// }
+
+import { PetraWallet } from "petra-plugin-wallet-adapter";
+import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
+import Wallet from './WalletsList';
+import { TrustWallet } from '@trustwallet/aptos-wallet-adapter';
+import { MartianWallet } from '@martianwallet/aptos-wallet-adapter';
+import { PontemWallet } from '@pontem/wallet-adapter-plugin';
+
+const App = () => {
+  const wallets = [new PetraWallet(), new MartianWallet(), new PontemWallet()];
+return <AptosWalletAdapterProvider plugins={wallets} autoConnect={true}>
+  <Wallet/>
+</AptosWalletAdapterProvider>;
 }
 
 export default App;
