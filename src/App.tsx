@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
 // import { AptosClient, Types } from 'aptos';
 
 // const client = new AptosClient('https://fullnode.devnet.aptoslabs.com/v1');
@@ -35,16 +35,29 @@ import './App.css';
 
 import { PetraWallet } from "petra-plugin-wallet-adapter";
 import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
-import Wallet from './WalletsList';
-import { TrustWallet } from '@trustwallet/aptos-wallet-adapter';
-import { MartianWallet } from '@martianwallet/aptos-wallet-adapter';
-import { PontemWallet } from '@pontem/wallet-adapter-plugin';
+import Wallet from "./WalletsList";
+import { TrustWallet } from "@trustwallet/aptos-wallet-adapter";
+import { MartianWallet } from "@martianwallet/aptos-wallet-adapter";
+import { PontemWallet } from "@pontem/wallet-adapter-plugin";
+import { FewchaWallet } from "fewcha-plugin-wallet-adapter";
+import TodoList from "./TodoList";
 
 const App = () => {
-  const wallets = [new PetraWallet(), new MartianWallet(), new PontemWallet()];
-return <AptosWalletAdapterProvider plugins={wallets} autoConnect={true}>
-  <Wallet/>
-</AptosWalletAdapterProvider>;
-}
+  const wallets = [
+    new PetraWallet(),
+    new MartianWallet(),
+    new PontemWallet(),
+    new FewchaWallet(),
+  ];
+  return (
+    <AptosWalletAdapterProvider plugins={wallets} autoConnect={true}>
+      <Wallet />
+      <br />
+      <hr />
+      <br />
+      <TodoList />
+    </AptosWalletAdapterProvider>
+  );
+};
 
 export default App;
