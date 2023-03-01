@@ -42,6 +42,14 @@ import { PontemWallet } from "@pontem/wallet-adapter-plugin";
 import { FewchaWallet } from "fewcha-plugin-wallet-adapter";
 import TodoList from "./TodoList";
 
+import { AptosClient, CoinClient } from "aptos";
+
+export const URLChain = "https://fullnode.testnet.aptoslabs.com/v1";
+export const aptosClient = new AptosClient(URLChain);
+export const coinClient = new CoinClient(aptosClient);
+export const moduleAddress =
+      "0x6a1ed7a5dc51b8b1cb6e7986b1d323892286d86521d81bd56b2fe620d382eef7";
+
 const App = () => {
   const wallets = [
     new PetraWallet(),
