@@ -149,6 +149,24 @@ const Wallet = ({ walletData }: any) => {
     }
   };
 
+  const getTasks = async () => {
+    if (!account) return [];
+    // build a transaction payload to be submited
+    const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress}::todolist::get_task`,
+      type_arguments: [],
+      arguments: [account.address, "2"],
+    };
+    try {
+      // sign and submit transaction to chain
+      const response = await signAndSubmitTransaction(payload);
+      // wait for transaction
+      await aptosClient.waitForTransaction(response.hash);
+    } catch (error: any) {
+    }
+  };
+
   return (
     <>
       <span>
@@ -176,6 +194,7 @@ const Wallet = ({ walletData }: any) => {
           <button onClick={onTransfer2APT}>Tranfer</button>
           <button onClick={addNewList}>Add New List</button> 
           <button onClick={addNewTask}>Add New Task</button> 
+          <button onClick={getTasks}>Get Tasks</button> 
         </>
       )}
 
